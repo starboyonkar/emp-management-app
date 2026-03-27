@@ -1,13 +1,20 @@
 import { useState } from "react";
-import { Edit, Trash2, ChevronUp, ChevronDown, Mail, Phone } from "lucide-react";
+import { Edit, Trash2, ChevronUp, ChevronDown, Mail, Phone, FileDown, Eye } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import { Checkbox } from "@/components/ui/checkbox";
 import type { Employee } from "@/hooks/useEmployees";
+import { exportSingleEmployeePdf } from "@/lib/exportPdf";
 
 interface Props {
   employees: Employee[];
   onEdit: (emp: Employee) => void;
   onDelete: (id: string) => void;
+  selectedIds: string[];
+  onSelectChange: (ids: string[]) => void;
+  page: number;
+  pageSize: number;
+  onPageChange: (p: number) => void;
 }
 
 type SortKey = "first_name" | "department" | "position" | "salary" | "hire_date" | "status";
@@ -18,7 +25,7 @@ const statusVariant: Record<string, string> = {
   on_leave: "bg-warning/10 text-warning border-warning/20",
 };
 
-export default function EmployeeTable({ employees, onEdit, onDelete }: Props) {
+export default function EmployeeTable({ employees, onEdit, onDelete, selectedIds, onSelectChange, page, pageSize, onPageChange }: Props) {
   const [sortKey, setSortKey] = useState<SortKey>("first_name");
   const [sortAsc, setSortAsc] = useState(true);
 
@@ -29,9 +36,21 @@ export default function EmployeeTable({ employees, onEdit, onDelete }: Props) {
     return sortAsc ? String(av).localeCompare(String(bv)) : String(bv).localeCompare(String(av));
   });
 
+  const totalPages = Math.max(1, Math.ceil(sorted.length / pageSize));
+  const paginated = sorted.slice((page - 1) * pageSize, page * pageSize);
+
   const toggleSort = (key: SortKey) => {
     if (sortKey === key) setSortAsc(!sortAsc);
     else { setSortKey(key); setSortAsc(true); }
+  };
+
+  const allSelected = paginated.length > 0 && paginated.every(e => selectedIds.includes(e.id));
+  const toggleAll = () => {
+    if (allSelected) onSelectChange(selectedIds.filter(id => !paginated.find(e => e.id === id)));
+    else onSelectChange([...new Set([...selectedIds, ...paginated.map(e => e.id)])]);
+  };
+  const toggleOne = (id: string) => {
+    onSelectChange(selectedIds.includes(id) ? selectedIds.filter(x => x !== id) : [...selectedIds, id]);
   };
 
   const SortIcon = ({ col }: { col: SortKey }) =>
@@ -52,6 +71,9 @@ export default function EmployeeTable({ employees, onEdit, onDelete }: Props) {
         <table className="w-full">
           <thead>
             <tr className="border-b border-border bg-muted/50">
+              <th className="px-4 py-3 w-10">
+                <Checkbox checked={allSelected} onCheckedChange={toggleAll} />
+              </th>
               {headers.map((h) => (
                 <th
                   key={h.key}
@@ -68,8 +90,11 @@ export default function EmployeeTable({ employees, onEdit, onDelete }: Props) {
             </tr>
           </thead>
           <tbody>
-            {sorted.map((emp) => (
+            {paginated.map((emp) => (
               <tr key={emp.id} className="border-b border-border/50 hover:bg-muted/30 transition-colors">
+                <td className="px-4 py-3">
+                  <Checkbox checked={selectedIds.includes(emp.id)} onCheckedChange={() => toggleOne(emp.id)} />
+                </td>
                 <td className="px-4 py-3">
                   <div>
                     <p className="font-medium text-card-foreground">{emp.first_name} {emp.last_name}</p>
@@ -96,24 +121,45 @@ export default function EmployeeTable({ employees, onEdit, onDelete }: Props) {
                 </td>
                 <td className="px-4 py-3">
                   <div className="flex items-center gap-1">
-                    <Button variant="ghost" size="icon" className="h-8 w-8 text-muted-foreground hover:text-primary" onClick={() => onEdit(emp)}>
+                    <Button variant="ghost" size="icon" className="h-8 w-8 text-muted-foreground hover:text-primary" onClick={() => exportSingleEmployeePdf(emp)} title="Download PDF">
+                      <FileDown className="h-4 w-4" />
+                    </Button>
+                    <Button variant="ghost" size="icon" className="h-8 w-8 text-muted-foreground hover:text-primary" onClick={() => onEdit(emp)} title="Edit">
                       <Edit className="h-4 w-4" />
                     </Button>
-                    <Button variant="ghost" size="icon" className="h-8 w-8 text-muted-foreground hover:text-destructive" onClick={() => onDelete(emp.id)}>
+                    <Button variant="ghost" size="icon" className="h-8 w-8 text-muted-foreground hover:text-destructive" onClick={() => onDelete(emp.id)} title="Delete">
                       <Trash2 className="h-4 w-4" />
                     </Button>
                   </div>
                 </td>
               </tr>
             ))}
-            {sorted.length === 0 && (
+            {paginated.length === 0 && (
               <tr>
-                <td colSpan={7} className="text-center py-12 text-muted-foreground">No employees found</td>
+                <td colSpan={8} className="text-center py-12 text-muted-foreground">No employees found</td>
               </tr>
             )}
           </tbody>
         </table>
       </div>
+
+      {/* Pagination */}
+      {totalPages > 1 && (
+        <div className="flex items-center justify-between px-4 py-3 border-t border-border/50">
+          <p className="text-sm text-muted-foreground">
+            Showing {(page - 1) * pageSize + 1}–{Math.min(page * pageSize, sorted.length)} of {sorted.length}
+          </p>
+          <div className="flex items-center gap-1">
+            <Button variant="outline" size="sm" disabled={page <= 1} onClick={() => onPageChange(page - 1)}>Previous</Button>
+            {Array.from({ length: totalPages }, (_, i) => i + 1).slice(
+              Math.max(0, page - 3), Math.min(totalPages, page + 2)
+            ).map(p => (
+              <Button key={p} variant={p === page ? "default" : "outline"} size="sm" className="w-8" onClick={() => onPageChange(p)}>{p}</Button>
+            ))}
+            <Button variant="outline" size="sm" disabled={page >= totalPages} onClick={() => onPageChange(page + 1)}>Next</Button>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
