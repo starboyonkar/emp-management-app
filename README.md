@@ -1,8 +1,4 @@
-# 🏢 Full-Stack Employee Management System with DevOps Driven lifecycle 
-
-<p align="center">
-  <img src="public/favicon.png" alt="OnkarNova EMS Logo" width="120" height="120" style="border-radius: 50%;" />
-</p>
+#  Full-Stack Employee Management System with DevOps Driven lifecycle 
 
 <p align="center">
   <strong>A modern, full-stack Employee Management System built with React, TypeScript & PostgreSQL</strong>
@@ -20,7 +16,7 @@
 
 ---
 
-## 📋 Table of Contents
+##  Table of Contents
 
 - [🔍 Overview](#-overview)
 - [✨ Features](#-features)
@@ -37,7 +33,7 @@
 
 ---
 
-## 🔍 Overview
+##  Overview
 
 **OnkarNova EMS** is a production-ready Employee Management System designed for organizations to efficiently manage their workforce data. Built with a modern JAMstack approach — a blazing-fast React frontend powered by a PostgreSQL backend — it delivers real-time CRUD operations, interactive dashboards, and enterprise-grade PDF reporting.
 
@@ -45,7 +41,7 @@
 
 ---
 
-## ✨ Features
+##  Features
 
 | Feature | Description |
 |---|---|
@@ -63,7 +59,7 @@
 
 ---
 
-## 🏗️ Architecture
+##  Architecture
 
 ```
 ┌─────────────────────────────────────────────────────┐
@@ -88,7 +84,10 @@
 
 ---
 
-## 🛠️ Tech Stack
+##  Tech Stack
+
+<img width="2232" height="1458" alt="be-your-devops-engineer" src="https://github.com/user-attachments/assets/c156a0b0-ce2d-44ff-84f7-998d1702a4d0" />
+
 
 ### Frontend
 | Technology | Purpose |
@@ -119,7 +118,7 @@
 
 ---
 
-## 🚀 Getting Started
+## Getting Started
 
 ### Prerequisites
 
