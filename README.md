@@ -1,3 +1,3 @@
-# Welcome to your React Vite project
+# Welcome to our React Vite project
 
 TODO: Document your project here
