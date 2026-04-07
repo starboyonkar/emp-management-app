@@ -154,7 +154,7 @@ VITE_SUPABASE_PUBLISHABLE_KEY=<your-anon-key>
 
 ---
 
-## 🐳 Docker Deployment
+##  Docker Deployment
 
 ### Build & Run
 
@@ -191,7 +191,7 @@ EXPOSE 80
 
 ---
 
-## ⚙️ Jenkins CI/CD Pipeline
+##  Jenkins CI/CD Pipeline
 
 The included `Jenkinsfile` automates the full delivery pipeline:
 
@@ -215,7 +215,7 @@ Checkout → Install → Build & Lint → Docker Build → Deploy
 
 ---
 
-## 🔐 Security
+##  Security
 
 - **Row Level Security (RLS)** enabled on all database tables
 - **No secrets in code** — environment variables for all sensitive config
@@ -225,21 +225,21 @@ Checkout → Install → Build & Lint → Docker Build → Deploy
 
 ---
 
-## 📄 PDF Export
+##  PDF Export
 
 The system supports two types of PDF exports:
 
-### 📋 Full Employee List
+###  Full Employee List
 - Landscape A4 format with company branding
 - Auto-generated table with all employee fields
 - Pagination support for large datasets
 
-### 👤 Individual Employee Profile
+###  Individual Employee Profile
 - Portrait A4 format with detailed employee information
 - Includes: personal details, department, position, salary, contact info
 ---
 
-## 🤝 Contributing
+##  Contributing
 
 1. **Fork** the repository
 2. **Create** a feature branch: `git checkout -b feature/amazing-feature`
@@ -263,7 +263,7 @@ This project follows [Conventional Commits](https://www.conventionalcommits.org/
 
 ---
 
-## 📜 License
+##  License
 
 This project is open source and available under the [MIT License](LICENSE).
 
