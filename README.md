@@ -1,4 +1,4 @@
-# 🏢 OnkarNova Employee Management System
+# 🏢 Full-Stack Employee Management System with DevOps Driven lifecycle 
 
 <p align="center">
   <img src="public/favicon.png" alt="OnkarNova EMS Logo" width="120" height="120" style="border-radius: 50%;" />
@@ -73,7 +73,7 @@
                        │ HTTPS / REST
                        ▼
 ┌─────────────────────────────────────────────────────┐
-│              Backend (Lovable Cloud)                 │
+│              Backend                                │
 │         PostgreSQL + Row Level Security             │
 │         Edge Functions + Auth + Storage             │
 └─────────────────────────────────────────────────────┘
@@ -216,50 +216,6 @@ Checkout → Install → Build & Lint → Docker Build → Deploy
 
 ---
 
-## 📁 Project Structure
-
-```
-onkarnova-ems/
-├── public/
-│   ├── favicon.png          # App favicon (circular logo)
-│   └── robots.txt           # SEO crawler directives
-├── src/
-│   ├── assets/              # Static assets (logo)
-│   ├── components/
-│   │   ├── ui/              # shadcn/ui primitives
-│   │   ├── DashboardStats.tsx
-│   │   ├── DepartmentChart.tsx
-│   │   ├── EmployeeTable.tsx
-│   │   ├── EmployeeFormDialog.tsx
-│   │   ├── DeleteConfirmDialog.tsx
-│   │   ├── Footer.tsx
-│   │   └── NavLink.tsx
-│   ├── hooks/
-│   │   └── useEmployees.ts  # TanStack Query hooks for CRUD
-│   ├── integrations/
-│   │   └── supabase/        # Auto-generated client & types
-│   ├── lib/
-│   │   ├── exportPdf.ts     # PDF generation utilities
-│   │   └── utils.ts         # Shared utility functions
-│   ├── pages/
-│   │   ├── Index.tsx        # Main dashboard page
-│   │   └── NotFound.tsx     # 404 page
-│   ├── index.css            # Design tokens & global styles
-│   ├── App.tsx              # Root component & routing
-│   └── main.tsx             # Entry point
-├── supabase/
-│   ├── config.toml          # Backend configuration
-│   └── migrations/          # Database migration files
-├── Dockerfile               # Multi-stage container build
-├── Jenkinsfile              # CI/CD pipeline definition
-├── nginx.conf               # Production web server config
-├── vite.config.ts           # Build tool configuration
-├── tailwind.config.ts       # Design system configuration
-└── package.json             # Dependencies & scripts
-```
-
----
-
 ## 🔐 Security
 
 - **Row Level Security (RLS)** enabled on all database tables
@@ -282,8 +238,6 @@ The system supports two types of PDF exports:
 ### 👤 Individual Employee Profile
 - Portrait A4 format with detailed employee information
 - Includes: personal details, department, position, salary, contact info
-- Professional layout with OnkarNova branding
-
 ---
 
 ## 🤝 Contributing
@@ -317,5 +271,5 @@ This project is open source and available under the [MIT License](LICENSE).
 ---
 
 <p align="center">
-  Built with ❤️ by <strong>OnkarNova</strong> — Solving workforce management, one commit at a time.
+  Built with ❤️ by <strong>OnkarNova Technologies</strong> — Solving workforce management, one commit at a time.
 </p>
